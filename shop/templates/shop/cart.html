@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Корзина</h2>
+    <ul>
+        {% for item in cart %}
+            <li>{{ item.tea.name }} — {{ item.quantity }} шт. — {{ item.total_price }} сом</li>
+        {% empty %}
+            <li>Корзина пуста</li>
+        {% endfor %}
+    </ul>
+
+    <p>Итого: {{ cart.get_total_price }} сом</p>
+    <a href="{% url 'checkout' %}">Оформить заказ</a>
+</body>
+</html>

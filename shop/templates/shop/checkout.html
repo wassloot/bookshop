@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Оформление заказа</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Отправить заказ</button>
+    </form>
+
+    <p>Спасибо за заказ!</p>
+    <p>Сумма к оплате: {{ cart.get_total_price }} сом</p>
+</body>
+</html>

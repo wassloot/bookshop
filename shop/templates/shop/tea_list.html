@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Чайный магазин</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
+</head>
+<style>
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fefefe;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #006400;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+nav a {
+    margin: 0 10px;
+    color: #006400;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.tea-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.tea-item h2 {
+    margin: 0;
+    color: #006400;
+}
+
+.tea-item p {
+    margin: 5px 0;
+}
+
+button, .btn {
+    background-color: #228B22;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #1a6e1a;
+}
+</style>
+<body>
+    <header>
+        <h1>Чайный магазин</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'tea_list' %}">Главная</a>
+        <a href="{% url 'cart_view' %}">Корзина</a>
+    </nav>
+
+    <div class="container">
+        {% for tea in teas %}
+            <div class="tea-item">
+                <h2>{{ tea.name }}</h2>
+                <p><strong>Происхождение:</strong> {{ tea.origin }}</p>
+                <p>{{ tea.description }}</p>
+                <p><strong>Цена:</strong> {{ tea.price }} сом</p>
+                {% if tea.in_stock %}
+                    <form action="{% url 'cart_add' tea.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Добавить в корзину</button>
+                    </form>
+                {% else %}
+                    <em>(нет в наличии)</em>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
