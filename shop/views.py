@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import Tea
 from .forms import TeaForm
+<<<<<<< HEAD
 from django.shortcuts import get_object_or_404, redirect
 from .cart import Cart
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+=======
+>>>>>>> 186fde388756c4ffb247f62bf01be81247781ab2
 
 def tea_list(request):
     teas = Tea.objects.all()
@@ -18,6 +21,7 @@ def add_tea(request):
             return redirect('tea_list')
     else:
         form = TeaForm()
+<<<<<<< HEAD
     return render(request, 'shop/add_tea.html', {'form': form})
 
 from django.shortcuts import get_object_or_404, redirect
@@ -41,3 +45,6 @@ def checkout(request):
     # Тут ты можешь потом подключить оплату
     return render(request, 'shop/checkout.html', {'cart': cart})
 
+=======
+    return render(request, 'shop/add_tea.html', {'form': form})
+>>>>>>> 186fde388756c4ffb247f62bf01be81247781ab2

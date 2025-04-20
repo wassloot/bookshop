@@ -19,8 +19,11 @@ INSTALLED_APPS = [
     'shop',
 ]
 
+<<<<<<< HEAD
 CART_SESSION_ID = 'cart'
 
+=======
+>>>>>>> 186fde388756c4ffb247f62bf01be81247781ab2
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
