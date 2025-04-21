@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Оформление заказа</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
 </head>
@@ -95,32 +96,14 @@ textarea {
 
 </style>
 <body>
-    <header>
-        <h1>Оформление заказа</h1>
-    </header>
-
-    <nav>
-        <a href="{% url 'tea_list' %}">Главная</a>
-        <a href="{% url 'cart_view' %}">Корзина</a>
-    </nav>
-
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <p>
-                <label for="name">Имя:</label><br>
-                <input type="text" name="name" required>
-            </p>
-            <p>
-                <label for="address">Адрес:</label><br>
-                <textarea name="address" rows="3" required></textarea>
-            </p>
-            <p>
-                <label for="card">Номер банковской карты:</label><br>
-                <input type="text" name="card" maxlength="19" required placeholder="1234 5678 9012 3456">
-            </p>
-            <button type="submit">Подтвердить заказ</button>
-        </form>
-    </div>
+    {% extends 'shop/tea_list.html' %}
+    {% block content %}
+    <h2>Регистрация</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    {% endblock %}
 </body>
 </html>

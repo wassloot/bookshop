@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Оформление заказа</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
-</head>
-<style>
-  /* Общие стили */
+/* Общие стили */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f7f7f7;
@@ -92,35 +84,3 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
-</style>
-<body>
-    <header>
-        <h1>Оформление заказа</h1>
-    </header>
-
-    <nav>
-        <a href="{% url 'tea_list' %}">Главная</a>
-        <a href="{% url 'cart_view' %}">Корзина</a>
-    </nav>
-
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <p>
-                <label for="name">Имя:</label><br>
-                <input type="text" name="name" required>
-            </p>
-            <p>
-                <label for="address">Адрес:</label><br>
-                <textarea name="address" rows="3" required></textarea>
-            </p>
-            <p>
-                <label for="card">Номер банковской карты:</label><br>
-                <input type="text" name="card" maxlength="19" required placeholder="1234 5678 9012 3456">
-            </p>
-            <button type="submit">Подтвердить заказ</button>
-        </form>
-    </div>
-</body>
-</html>

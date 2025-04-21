@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Оформление заказа</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
+    <title>Привязка карты</title>
 </head>
 <style>
   /* Общие стили */
@@ -95,32 +93,22 @@ textarea {
 
 </style>
 <body>
-    <header>
-        <h1>Оформление заказа</h1>
-    </header>
+    <h1>Привязка банковской карты</h1>
+    <p>Здесь будет форма для ввода данных банковской карты.</p>
 
-    <nav>
-        <a href="{% url 'tea_list' %}">Главная</a>
-        <a href="{% url 'cart_view' %}">Корзина</a>
-    </nav>
+    <!-- Тут будет форма, пока можно просто заглушку -->
+    <form method="post">
+        {% csrf_token %}
+        <label for="card_number">Номер карты:</label><br>
+        <input type="text" id="card_number" name="card_number"><br><br>
 
-    <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <p>
-                <label for="name">Имя:</label><br>
-                <input type="text" name="name" required>
-            </p>
-            <p>
-                <label for="address">Адрес:</label><br>
-                <textarea name="address" rows="3" required></textarea>
-            </p>
-            <p>
-                <label for="card">Номер банковской карты:</label><br>
-                <input type="text" name="card" maxlength="19" required placeholder="1234 5678 9012 3456">
-            </p>
-            <button type="submit">Подтвердить заказ</button>
-        </form>
-    </div>
+        <label for="exp_date">Срок действия:</label><br>
+        <input type="text" id="exp_date" name="exp_date"><br><br>
+
+        <label for="cvv">CVV:</label><br>
+        <input type="password" id="cvv" name="cvv"><br><br>
+
+        <button type="submit">Привязать карту</button>
+    </form>
 </body>
 </html>

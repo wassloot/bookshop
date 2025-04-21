@@ -1,5 +1,5 @@
-
 from django.db import models
+from django.contrib.auth.models import User
 
 class Tea(models.Model):
     name = models.CharField(max_length=100)
@@ -10,3 +10,9 @@ class Tea(models.Model):
 
     def __str__(self):
         return self.name
+
+class PaymentMethod(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=16)
+    expiration_date = models.CharField(max_length=5)  # MM/YY
+    cvv = models.CharField(max_length=3)

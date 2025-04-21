@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
 from .models import Tea
 from .forms import TeaForm
-<<<<<<< HEAD
 from django.shortcuts import get_object_or_404, redirect
 from .cart import Cart
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-=======
->>>>>>> 186fde388756c4ffb247f62bf01be81247781ab2
+from django.contrib.auth import login
+from .forms import RegisterForm
+from .forms import PaymentForm
+from .models import PaymentMethod
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 def tea_list(request):
     teas = Tea.objects.all()
@@ -21,7 +27,7 @@ def add_tea(request):
             return redirect('tea_list')
     else:
         form = TeaForm()
-<<<<<<< HEAD
+
     return render(request, 'shop/add_tea.html', {'form': form})
 
 from django.shortcuts import get_object_or_404, redirect
@@ -45,6 +51,52 @@ def checkout(request):
     # Тут ты можешь потом подключить оплату
     return render(request, 'shop/checkout.html', {'cart': cart})
 
-=======
     return render(request, 'shop/add_tea.html', {'form': form})
->>>>>>> 186fde388756c4ffb247f62bf01be81247781ab2
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('tea_list')
+    else:
+        form = RegisterForm()
+    return render(request, 'shop/register.html', {'form': form})
+
+@login_required
+def payment_method_view(request):
+    try:
+        payment = request.user.paymentmethod
+    except PaymentMethod.DoesNotExist:
+        payment = None
+
+    if request.method == 'POST':
+        form = PaymentForm(request.POST, instance=payment)
+        if form.is_valid():
+            method = form.save(commit=False)
+            method.user = request.user
+            method.save()
+            return redirect('tea_list')
+    else:
+        form = PaymentForm(instance=payment)
+
+    return render(request, 'shop/payment_method.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('tea_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'shop/register.html', {'form': form})
+
+def link_card(request):
+    return render(request, 'shop/link_card.html')
+
+def cart_clear(request):
+    request.session['cart'] = {}
+    return redirect('cart_view')
