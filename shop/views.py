@@ -48,7 +48,7 @@ def cart_view(request):
 
 def checkout(request):
     cart = Cart(request)
-    # Тут ты можешь потом подключить оплату
+    #потом подключить оплату
     return render(request, 'shop/checkout.html', {'cart': cart})
 
     return render(request, 'shop/add_tea.html', {'form': form})

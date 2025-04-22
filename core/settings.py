@@ -1,13 +1,16 @@
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,7 +22,7 @@ INSTALLED_APPS = [
     'shop',
 ]
 
-CART_SESSION_ID = 'cart'
+CART_SESSION_ID = os.environ.get('CART_SESSION_ID')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
